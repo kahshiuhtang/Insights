@@ -2,7 +2,9 @@
 
 ## Overview
 
-Blockchain-bases housing database for transactions, reviews and status updates
+Blockchain-based housing database for transactions, reviews and status updates.
+
+Allows users to check the validity of
 
 Tasks to implement:
 
@@ -11,6 +13,8 @@ Tasks to implement:
 3. Setup of Transaction System
 4. Visualizing Transactions
 5. Users
+6. Chatting
+7. Data storage
 
 ## Getting Started
 
@@ -19,6 +23,10 @@ Tasks to implement:
 make
 
 go v1.18+
+
+go-libp2p
+
+go-libp2p-kad-dht
 
 ### Installation
 
