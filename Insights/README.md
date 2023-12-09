@@ -1,21 +1,8 @@
-# Your Blockchain Project Name
-
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+# Insights
 
 ## Overview
 
-Blockchain-based housing portal
-
-## Table of Contents
-
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
+Blockchain-bases housing database for transactions, reviews and status updates
 
 ## Getting Started
 
