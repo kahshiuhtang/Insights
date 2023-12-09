@@ -9,7 +9,8 @@ Blockchain-bases housing database for transactions, reviews and status updates
 ### Prerequisites
 
 make
-go > v1.18
+
+go v1.18+
 
 ### Installation
 
