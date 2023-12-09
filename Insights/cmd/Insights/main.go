@@ -1,8 +1,11 @@
 package main
 
-
-import "fmt"
+import (
+	"fmt"
+	"insights/internal/blockchain"
+)
 
 func main() {
     fmt.Println("Hello, Go!")
+	blockchain.CreateBlockchain(5);
 }

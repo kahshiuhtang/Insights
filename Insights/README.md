@@ -4,6 +4,14 @@
 
 Blockchain-bases housing database for transactions, reviews and status updates
 
+Tasks to implement:
+
+1. Blockchain Hashing Async
+2. P2P Network
+3. Setup of Transaction System
+4. Visualizing Transactions
+5. Users
+
 ## Getting Started
 
 ### Prerequisites
