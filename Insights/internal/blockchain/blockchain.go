@@ -7,6 +7,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/kahshiuhtang/Insights/transactions"
 )
 
 type Block struct {
@@ -55,10 +57,21 @@ func (b *Blockchain) addBlock(from, to string, amount float64) {
         }
         lastBlock := b.chain[len(b.chain)-1]
         newBlock := Block{
-							data:         blockData,
-							prevHash: lastBlock.hash,
-							timestamp:    time.Now(),
-        				}
+                        data:         blockData,
+                        prevHash: lastBlock.hash,
+                        timestamp:    time.Now(),
+        	}
+        newBlock.mine(b.difficulty)
+        b.chain = append(b.chain, newBlock)
+}
+func (b *Blockchain) AddTransactionToChain(t transactions.Transaction) {
+        blockData := t.toString();
+        lastBlock := b.chain[len(b.chain)-1]
+        newBlock := Block{
+                        data:         blockData,
+                        prevHash: lastBlock.hash,
+                        timestamp:    time.Now(),
+        	}
         newBlock.mine(b.difficulty)
         b.chain = append(b.chain, newBlock)
 }
@@ -67,9 +80,9 @@ func (b Blockchain) isValid() bool {
         for i := range b.chain[1:] {
             previousBlock := b.chain[i]
             currentBlock := b.chain[i+1]
-			if currentBlock.hash != currentBlock.calculateHash() || currentBlock.prevHash != previousBlock.hash {
-					return false
-			}
+                if currentBlock.hash != currentBlock.calculateHash() || currentBlock.prevHash != previousBlock.hash {
+                                return false
+                }
         }
         return true
 }
