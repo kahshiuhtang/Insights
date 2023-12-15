@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"net"
+	"os"
 	"sync"
 
 	"github.com/kahshiuhtang/Insights/internal/network"
@@ -27,5 +29,6 @@ func main() {
 	if err != nil{
 		return
 	}
+	scanner := bufio.NewScanner(os.Stdin)
 	wg.Wait();
 }
