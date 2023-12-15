@@ -4,31 +4,42 @@ import (
 	"bufio"
 	"flag"
 	"fmt"
-	"net"
 	"os"
-	"sync"
+	"strings"
 
 	"github.com/kahshiuhtang/Insights/internal/network"
 )
 func main() {
-    fmt.Println("Hello, Go!")
-	var action string;
-	flag.StringVar(&action, "action", "create", "Specify an Action");
+	var serverName string;
+	var serverAddr string;
+	flag.StringVar(&serverName, "name", "None", "Specify a server name");
+	flag.StringVar(&serverAddr, "addr", "None", "Specify a server address")
 	flag.Parse();
-	fmt.Println("Action", action);
-	var wg sync.WaitGroup;
-	serv := network.CreateServer();
-	go serv.Start(&wg);
-	wg.Add(1);
-	wg.Add(1)
-	conn, err := net.Dial("tcp", "localhost:8081");
-	if err != nil{
+
+	if serverName == "None"{
+		fmt.Println("[Main]: Server must have a name.")
 		return;
 	}
-	_, err = conn.Write([]byte("Hello, server!"));
-	if err != nil{
-		return
+	if serverAddr == "None"{
+		fmt.Println("[Main]: Server must have a address.")
+		return;
 	}
+	msgChan := make(chan string);
+	serv := network.CreateServer(serverName, serverAddr, msgChan);
+	go serv.Start();
+
 	scanner := bufio.NewScanner(os.Stdin)
-	wg.Wait();
+	for {
+		fmt.Print("> ")
+		scanner.Scan()
+		input := scanner.Text()
+		lowercaseInput :=  strings.ToLower(input);
+		if lowercaseInput == "exit"{
+			fmt.Println("Exiting...");
+			break;
+		}else if lowercaseInput == "send"{
+			
+			fmt.Println("");
+		}
+	}
 }

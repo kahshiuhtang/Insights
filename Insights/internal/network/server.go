@@ -3,18 +3,19 @@ package network
 import (
 	"fmt"
 	"net"
-	"sync"
 )
 
 type Server struct{
-
+	msgChan chan string 
+	serverName string
+	port string
 }
 
-func CreateServer() Server{
-	return Server{};
+func CreateServer(name string, port string, msgChan chan string) Server{
+	return Server{msgChan: msgChan, serverName: name, port: port};
 }
-func (s Server) Start(wg *sync.WaitGroup){
-	ln, err := net.Listen("tcp", ":8081");
+func (s Server) Start(){
+	ln, err := net.Listen("tcp", s.port);
 	if err != nil{
 		fmt.Println(err)
 		return
@@ -26,11 +27,11 @@ func (s Server) Start(wg *sync.WaitGroup){
 			continue
 		}
 
-		go handleConnection(conn, wg);
+		go handleConnection(conn);
 	}
 
 }
-func handleConnection(conn net.Conn, wg *sync.WaitGroup) {
+func handleConnection(conn net.Conn) {
     // Close the connection when we're done
     defer conn.Close()
 
@@ -44,5 +45,16 @@ func handleConnection(conn net.Conn, wg *sync.WaitGroup) {
 
     // Print the incoming data
     fmt.Printf("Received: %s", buf)
-	wg.Done();
+}
+
+func sendMessage(address string) {
+	// "localhost:8081"
+	conn, err := net.Dial("tcp", address);
+	if err != nil{
+		return;
+	}
+	_, err = conn.Write([]byte("Hello, server!"));
+	if err != nil{
+		return
+	}
 }
