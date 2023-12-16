@@ -32,14 +32,24 @@ func main() {
 	for {
 		fmt.Print("> ")
 		scanner.Scan()
-		input := scanner.Text()
-		lowercaseInput :=  strings.ToLower(input);
+		inputs := strings.Fields(scanner.Text())
+		
+		lowercaseInput :=  strings.ToLower(inputs[0]);
 		if lowercaseInput == "exit"{
 			fmt.Println("Exiting...");
+			success := serv.Shutdown();
+			if success == false{
+				fmt.Println("Errors shuting down");
+				break;
+			}
+			fmt.Println("Successful shutdown!");
 			break;
-		}else if lowercaseInput == "send"{
-			
-			fmt.Println("");
+		}else if lowercaseInput == "send"{ 
+			serv.SendMessage(inputs[1], inputs[2]);	
+		}else if lowercaseInput == "help"{
+			fmt.Println("[Help]:")
+			fmt.Println("send [addr] [message]")
+			fmt.Println("exit")
 		}
 	}
 }
